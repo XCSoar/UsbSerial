@@ -49,7 +49,8 @@ public class SerialBuffer
         synchronized(this)
         {
             byte[] dst = new byte[readBuffer.position()];
-            readBuffer.position(0);
+            // casting to Buffer to work around Java 9 ABI problem
+            ((java.nio.Buffer)readBuffer).position(0);
             readBuffer.get(dst, 0, dst.length);
             if(debugging)
                 UsbSerialDebugger.printReadLogGet(dst, true);
@@ -61,7 +62,8 @@ public class SerialBuffer
     {
         synchronized(this)
         {
-            readBuffer.clear();
+            // casting to Buffer to work around Java 9 ABI problem
+            ((java.nio.Buffer)readBuffer).clear();
         }
     }
 
