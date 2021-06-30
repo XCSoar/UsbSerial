@@ -4,8 +4,6 @@ import java.io.EOFException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import okio.Buffer;
-
 public class SerialBuffer
 {
     static final int DEFAULT_READ_BUFFER_SIZE = 16 * 1024;
