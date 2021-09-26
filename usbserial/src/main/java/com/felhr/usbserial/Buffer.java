@@ -10,7 +10,7 @@ final class Buffer {
         if (head == tail)
             head = tail = 0;
 
-        if (tail + src.length > data.length) {
+        if (data == null || tail + src.length > data.length) {
             byte[] old = data;
 
             int capacity = size() + data.length;
