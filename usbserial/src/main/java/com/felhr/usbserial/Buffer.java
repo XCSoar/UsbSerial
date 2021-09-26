@@ -13,7 +13,7 @@ final class Buffer {
         if (data == null || tail + src.length > data.length) {
             byte[] old = data;
 
-            int capacity = size() + data.length;
+            int capacity = size() + src.length;
             if (capacity < 16384)
                 capacity = 16384;
             data = new byte[capacity];
