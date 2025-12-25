@@ -181,11 +181,11 @@ public class SerialPortBuilder {
         if(!broadcastRegistered) {
             IntentFilter filter = new IntentFilter();
             filter.addAction(ACTION_USB_PERMISSION);
-            int flags = 0;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                flags = Context.RECEIVER_NOT_EXPORTED;
+                context.registerReceiver(usbReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            } else {
+                context.registerReceiver(usbReceiver, filter);
             }
-            context.registerReceiver(usbReceiver, filter, flags);
             broadcastRegistered = true;
         }
     }
