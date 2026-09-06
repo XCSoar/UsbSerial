@@ -23,6 +23,10 @@ public class FTDISerialDevice extends UsbSerialDevice
     private static final int FTDI_SIO_SET_FLOW_CTRL = 2;
     private static final int FTDI_SIO_SET_BAUD_RATE = 3;
     private static final int FTDI_SIO_SET_DATA = 4;
+    private static final int FTDI_SIO_SET_LATENCY_TIMER = 9;
+
+    /** FTDI default is 16 ms; 1 ms is the minimum (AN232B-04). */
+    private static final int FTDI_LATENCY_TIMER_MS = 1;
 
     private static final int FTDI_REQTYPE_HOST2DEVICE = 0x40;
 
@@ -476,6 +480,9 @@ public class FTDISerialDevice extends UsbSerialDevice
             return false;
         if(setControlCommand(FTDI_SIO_SET_BAUD_RATE, FTDI_BAUDRATE_9600, 0) < 0)
             return false;
+        /* Short request/response frames wait for this timer. Failure
+           leaves the chip at 16 ms; still usable. */
+        setControlCommand(FTDI_SIO_SET_LATENCY_TIMER, FTDI_LATENCY_TIMER_MS, 0);
 
         // Flow control disabled by default
         rtsCtsEnabled = false;
